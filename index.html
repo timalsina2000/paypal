@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PayPal Clone</title>
+  <!-- You can use a local stylesheet or link to an external one -->
+  <link rel="stylesheet" href="style.css">
+  <!-- (Optional) Icon library like Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+
+<body>
+
+
+
+  <!-- Main Container -->
+  <div class="app-container">
+
+    <!-- Header with Profile & Balance -->
+    <header>
+        <div class="profile">
+            <img src="guy.jpeg" alt="Profile Picture">
+        </div>
+        <div class="scanner">
+            <span><i class="fa-solid fa-qrcode"></i></span>
+        </div>
+    </header>
+    <div class="balance-card">
+        <div class="flex1">
+            <img  id="icon1" src="paypal.svg">
+        </div>
+        <div class="flex2">
+        <p class="balance-amount">  2,66555 USD</p>
+        <p class="balance-label">PayPal balance</p>
+    </div>
+      </div>
+
+    <!-- Send Again Section -->
+    <section class="section send-again">
+      <h2>Send again</h2>
+      <div class="contacts">
+        <div class="contact">
+          <img src="image1.jpeg" alt="User 1" />
+          <p>Rajan Sharma</p>
+        </div>
+        <div class="contact">
+          <img src="image.2.jpeg" alt="User 2" />
+          <p>Vivek Chaudhary</p>
+        </div>
+        <div class="contact">
+          <div class="contact-initials">OS</div>
+          <p>Onkar Singh</p>
+        </div>
+        <div class="contact">
+          <div class="contact-initials">LT</div>
+          <p>Leo Thomas-Lawton</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Send Money Internationally Section -->
+    <section class="section send-internationally">
+      <h2>Send money internationally</h2>
+      <div class="international-options">
+        <div class="transaction-container">
+        <div class="transction-method1"><button><i class="fas fa-university" id="icccon"></i> </button><div class="tranText">Direct to bank</div></div>
+        <div class="transction-method1"><button><i class="fas fa-hand-holding-usd" id="icccon"></i> </button><div class="tranText">Cash pickup</div></div>
+        <div class="transction-method1"><button><i class="fas fa-mobile-alt" id="icccon"></i> </button><div class="tranText">Mobile money</div></div>
+        <div class="transction-method1"><button><i class="fas fa-phone" id="icccon"></i> </button><div class="tranText">Reload phones</div></div>
+
+    </div>
+      </div>
+    </section>
+
+    <!-- Transactions Section -->
+        <section class="section transactions">
+          <div class="transaction">
+            <div class="transaction-info">
+              <p class="transaction-title">TikTok Inc.</p>
+              <p class="transaction-date">22 Feb</p>
+              <p class="transaction-type">Payment</p>
+            </div>
+            <div class="transaction-amount negative">-US$41.20</div>
+          </div>
+          <div class="transaction">
+            <div class="transaction-info">
+              <p class="transaction-title">TikTok Inc.</p>
+              <p class="transaction-date">22 Feb</p>
+              <p class="transaction-type">Payment</p>
+            </div>
+            <div class="transaction-amount negative">-US$1.00</div>
+          </div>
+        </section>
+
+
+     <!-- Bottom Action Bar (Send / Request) -->
+  <div class="bottom-action-bar">
+    <button><a href="sendMoney.html" class="send-btn"> Send</a></button>
+    <button class="request-btn">Request</button>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <a href="#" class="nav-item active">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="#" class="nav-item">
+      <i class="fas fa-dollar-sign"></i>
+      <span>Payments</span>
+    </a>
+    <a href="#" class="nav-item">
+      <i class="fas fa-wallet"></i>
+      <span>Wallet</span>
+    </a>
+  </nav>
+
+  </div>
+
+ 
+
+  <!-- Optional JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

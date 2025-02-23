@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Sent UI</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-light">
+<div class="container mt-4">
+    <div class="card p-3">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="index.html" class="text-dark text-decoration-none fs-4"><i class="fa fa-arrow-left"></i></a>
+            <h5 class="mb-0">Money Sent</h5>
+            <div></div>
+        </div>
+
+        <!-- Profile -->
+        <div class="d-flex align-items-center mt-3">
+            <img src="https://imgs.search.brave.com/HX7R-wFPet1zK2kkckgvf1egrJNo1ZfNIv066BcF6MU/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2JiLzYx/LzBiL2JiNjEwYmJj/MjQ3ZDMxMTFlZWU1/N2M0MGRkMTQ5MmI1/LmpwZw" alt="Profile" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+            <div>
+                <h6 class="mb-0" id="recipientName">Rajan Sharma</h6>
+                <small class="text-muted" id="timestamp" style="font-size: 10px;">Jan 30, 09:43 AM</small>
+                <p class="text-muted small" id="feeText" style="width: 200%">You paid a A$6.38 transaction fee.</p>
+                <a class="text-primary" style="font-weight: bold;">View History</a>
+            </div>
+            <div style="text-align: right; width: 300px;">
+              <h4 class="text-danger fw-bold" id="totalAmount" style="font-size: x-small;">- $16,469.09 AUD</h4>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between mt-3">
+            <button class="btn btn-light w-100 me-2" style="display: block;"><i class="fas fa-money-bill-transfer"></i><br/> Send Money</button>
+            <button class="btn btn-light w-100 me-2"><i class="fas fa-pie-chart"></i><br/>Split Money</button>
+            <button class="btn btn-light w-100"><i class="fas fa-message"></i><br/>Message</button>
+        </div>
+
+        <!-- Options -->
+        <div class="mt-4 border-top pt-3">
+            <a href="#" class="d-block text-decoration-none mb-2 text-dark"><i class="fa fa-user text-primary" style="padding: 10px;"></i>Report Rajan</a>
+            <a href="#" class="d-block text-black text-decoration-none mb-2"><i class="fa fa-ban text-primary" style="padding: 10px;"></i>Block Rajan</a>
+        </div>
+        <div>
+          <a href="#" class="d-block text-black text-decoration-none"><i class="fas fa-triangle-exclamation text-primary" style="padding: 10px;"></i>Report a Problem</a>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const transactionData = JSON.parse(localStorage.getItem('transactionData'));
+  if (transactionData) {
+    document.getElementById('recipientName').textContent = transactionData.recipientName;
+    document.getElementById('timestamp').textContent = transactionData.timestamp;
+    document.getElementById('feeText').textContent = `You paid a ${transactionData.fee} ${transactionData.sendCurrency} transaction fee.`;
+    document.getElementById('totalAmount').textContent = `- ${transactionData.total} ${transactionData.sendCurrency}`;
+    // localStorage.removeItem('transactionData'); // Uncomment to clear data after use
+  } else {
+    console.log("No transaction data found in localStorage.");
+  }
+</script>
+</body>
+</html>

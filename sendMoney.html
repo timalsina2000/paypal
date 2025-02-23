@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Suggestions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <style>
+    /* Reset some basic styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: sans-serif;
+      background-color: #fff;
+      color: #000;
+    }
+    
+    /* Container and layout */
+    .container {
+      max-width: 400px;
+      margin: 20px auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #fff;
+    }
+    #qrCode {
+      padding: 10px;
+      color: #6e6d6d;
+    }
+    
+    /* Header and search input */
+    header {
+      display: flex;
+      padding: 16px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      background: #cbcaca;
+      border-radius: 8px;
+      outline: none;
+    }
+    
+    /* Title for the suggestions section */
+    .suggestion-title {
+      padding: 16px;
+      font-size: 14px;
+      color: #555;
+      border-bottom: 1px solid #eee;
+    }
+    
+    /* Suggestion list */
+    .suggestions {
+      list-style: none;
+    }
+    
+    /* Individual suggestion item */
+    .suggestion-item {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+    
+    /* User image or initials */
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background-color: #eee;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      font-weight: bold;
+      color: #888;
+    }
+    
+    /* User info (name/username) container */
+    .user-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Primary text (name) */
+    .user-name {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    /* Secondary text (username) */
+    .user-username {
+      font-size: 14px;
+      color: #888;
+    }
+    
+    /* Right icon or button placeholder */
+    .item-action {
+      margin-left: auto;
+      color: #999;
+      font-size: 16px;
+    }
+    
+    /* Hover effect for each item */
+    .suggestion-item:hover {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="index.html"> <i class="fa-solid fa-arrow-left" id="qrCode"></i></a>
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Name, username or email"
+        id="searchInput"
+      />
+      <i class="fa-solid fa-qrcode" id="qrCode"></i>
+    </header>
+
+    <div class="suggestion-title">Suggested</div>
+
+    <ul class="suggestions" id="suggestionList">
+      <!-- Dynamically generated suggestions will go here -->
+    </ul>
+  </div>
+
+  <script>
+    // Example data that might come from an API
+    const suggestionsData = [
+      { name: 'Rajan Sharma', username: '@hancyrajan', avatarText: 'RS' },
+      { name: 'Vivek Chaudhary', username: '@VivekChaudhary996', avatarText: 'VC' },
+      { name: 'Onkar Singh', username: '@onkar90', avatarText: 'OS' },
+      { name: 'Leo Thomas-Lawton', username: '@LeoThomas', avatarText: 'LT' },
+      { name: 'Puja Khanal', username: '@Puja235', avatarText: 'PK' },
+      { name: 'Praddeep Dewan', username: '@PraddeepDewan', avatarText: 'PD' },
+      { name: 'Govinda Bhattarai', username: '@GovindaBhattarai', avatarText: 'GB' },
+      { name: 'Akshita Arunachalam', username: '@AkshitaA', avatarText: 'AA' },
+      { name: 'Bikash Gautam', username: '@BikashGautam', avatarText: 'BG' },
+      { name: 'Ramesh Yadav', username: '@RameshYadav', avatarText: 'RY' },
+      { name: 'Casheeq Enterprise', username: '@QGenius', avatarText: 'CE' },
+      { name: 'Mohammed Nisar', username: '@saban1234', avatarText: 'MN' }
+    ];
+    
+    const searchInput = document.getElementById('searchInput');
+    const suggestionList = document.getElementById('suggestionList');
+    
+    // Function to handle user selection
+    function selectUser(user) {
+      localStorage.setItem('selectedUser', JSON.stringify(user));
+      window.location.href = 'userInfo.html'; // Redirect to the Send Money page
+    }
+    
+    // Function to render the suggestions
+    function renderSuggestions(data) {
+      // Clear existing items
+      suggestionList.innerHTML = '';
+    
+      // Loop through data and create list items
+      data.forEach((user) => {
+        const li = document.createElement('li');
+        li.classList.add('suggestion-item');
+    
+        // Avatar
+        const avatarDiv = document.createElement('div');
+        avatarDiv.classList.add('user-avatar');
+        avatarDiv.textContent = user.avatarText;
+    
+        // User info container
+        const infoDiv = document.createElement('div');
+        infoDiv.classList.add('user-info');
+    
+        // User name
+        const nameSpan = document.createElement('span');
+        nameSpan.classList.add('user-name');
+        nameSpan.textContent = user.name;
+    
+        // User username
+        const usernameSpan = document.createElement('span');
+        usernameSpan.classList.add('user-username');
+        usernameSpan.textContent = user.username;
+    
+        // Append user name and username to info container
+        infoDiv.appendChild(nameSpan);
+        infoDiv.appendChild(usernameSpan);
+    
+        // Optional right-side icon or action
+        const actionSpan = document.createElement('span');
+        actionSpan.classList.add('item-action');
+        actionSpan.textContent = '•';
+    
+        // Combine everything
+        li.appendChild(avatarDiv);
+        li.appendChild(infoDiv);
+        li.appendChild(actionSpan);
+    
+        // Add click event to select user
+        li.addEventListener('click', () => selectUser(user));
+    
+        // Add to the suggestion list
+        suggestionList.appendChild(li);
+      });
+    }
+    
+    // Initial render
+    renderSuggestions(suggestionsData);
+    
+    // Filter suggestions on input
+    searchInput.addEventListener('input', function () {
+      const query = this.value.toLowerCase().trim();
+      const filteredData = suggestionsData.filter((user) => {
+        return (
+          user.name.toLowerCase().includes(query) ||
+          user.username.toLowerCase().includes(query)
+        );
+      });
+      renderSuggestions(filteredData);
+    });
+  </script>
+</body>
+</html>

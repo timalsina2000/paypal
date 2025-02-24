@@ -118,12 +118,70 @@
     .suggestion-item:hover {
       background-color: #f9f9f9;
     }
+    .top-bar {
+      background-color: #0a2a7a; /* Match your blue color */
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .top-bar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-bar ul li {
+      display: flex;
+      align-items: center;
+    }
+
+    .top-bar ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+    }
+
+    .settings i {
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .logout {
+      margin-left: auto;
+    }
+    .send{
+      width: 100%;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
+
+  <nav class="top-bar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">Send</a></li>
+      <li><a href="transaction.html">Activity</a></li>
+      <li><a href="#">Help <i class="fa-regular fa-bell"></i></a></li>
+      <li class="settings"><i class="fa-solid fa-gear"></i></li>
+      <li><a href="#" class="logout">LOG OUT</a></li>
+    </ul>
+  </nav>
   <div class="container">
+
+    <div>
+      <h2 class="send">Send payment to</h2>
+    </div>
     <header>
+     
       <a href="index.html"> <i class="fa-solid fa-arrow-left" id="qrCode"></i></a>
+
       <input 
         type="text" 
         class="search-input" 
@@ -141,38 +199,26 @@
   </div>
 
   <script>
-      //retrive suggetion from the local storage 
-      let suggestionsData = JSON.parse(localStorage.getItem("jsonData"));
+    // 1) Retrieve suggestions from localStorage (or use empty array if none)
+    let suggestionsData = JSON.parse(localStorage.getItem("jsonData")) || [];
 
-
-    // Example data that might come from an API
-    if (!suggestionsData || !suggestionsData.length) {
-    const suggestionsData = [
-      { name: 'Rajan Sharma', username: '@hancyrajan', avatarText: 'RS' },
-      { name: 'Vivek Chaudhary', username: '@VivekChaudhary996', avatarText: 'VC' },
-      { name: 'Onkar Singh', username: '@onkar90', avatarText: 'OS' },
-      { name: 'Leo Thomas-Lawton', username: '@LeoThomas', avatarText: 'LT' },
-      { name: 'Puja Khanal', username: '@Puja235', avatarText: 'PK' },
-      { name: 'Praddeep Dewan', username: '@PraddeepDewan', avatarText: 'PD' },
-      { name: 'Govinda Bhattarai', username: '@GovindaBhattarai', avatarText: 'GB' },
-      { name: 'Akshita Arunachalam', username: '@AkshitaA', avatarText: 'AA' },
-      { name: 'Bikash Gautam', username: '@BikashGautam', avatarText: 'BG' },
-      { name: 'Ramesh Yadav', username: '@RameshYadav', avatarText: 'RY' },
-      { name: 'Casheeq Enterprise', username: '@QGenius', avatarText: 'CE' },
-      { name: 'Mohammed Nisar', username: '@saban1234', avatarText: 'MN' }
-    ];
+    // 2) If you want default suggestions only if localStorage is empty, you can do so:
+    if (!suggestionsData.length) {
+      suggestionsData = [
+        { name: 'John Doe', username: '@john', avatarText: 'JD' },
+        { name: 'Jane Smith', username: '@jane', avatarText: 'JS' },
+        { name: 'Alice Johnson', username: '@alice', avatarText: 'AJ' }
+      ];
     }
 
-  
-
-    
     const searchInput = document.getElementById('searchInput');
     const suggestionList = document.getElementById('suggestionList');
     
     // Function to handle user selection
     function selectUser(user) {
+      // Save selected user to localStorage or do whatever you need
       localStorage.setItem('selectedUser', JSON.stringify(user));
-      window.location.href = 'userInfo.html'; // Redirect to the Send Money page
+      window.location.href = 'userInfo.html'; // Redirect to the next page
     }
     
     // Function to render the suggestions
@@ -226,22 +272,43 @@
       });
     }
     
-    // Initial render
+    // Initial render (show all suggestions)
     renderSuggestions(suggestionsData);
 
-
-   
-    // Filter suggestions on input
+    // 3) Filter suggestions or show typed text
     searchInput.addEventListener('input', function () {
-      const query = this.value.toLowerCase().trim();
-      const filteredData = suggestionsData.filter((user) => {
+      const query = this.value.trim();
+
+      // If user cleared the search, show all suggestions
+      if (!query) {
+        renderSuggestions(suggestionsData);
+        return;
+      }
+
+      // Filter existing suggestions
+      let filteredData = suggestionsData.filter((user) => {
         return (
-          user.name.toLowerCase().includes(query) ||
-          user.username.toLowerCase().includes(query)
+          user.name.toLowerCase().includes(query.toLowerCase()) ||
+          user.username.toLowerCase().includes(query.toLowerCase())
         );
       });
+
+      // If no match found, display typed text as a new suggestion
+      if (filteredData.length === 0) {
+        // For the avatar text, you can take the first 2 letters in uppercase
+        const avatarLetters = query.slice(0, 2).toUpperCase();
+        filteredData.push({
+          name: query,
+          username: '@' + query.replace(/\s+/g, ''), // Remove spaces for username
+          avatarText: avatarLetters
+        });
+      }
+
+      // Render the filtered or newly created suggestion
       renderSuggestions(filteredData);
     });
   </script>
 </body>
 </html>
+
+

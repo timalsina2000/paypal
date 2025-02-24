@@ -238,7 +238,7 @@
   }
   
   .transaction-amount.negative {
-    color: #4fd95a; /* Red for negative amounts */
+    color: #0b0b0b; /* Red for negative amounts */
   }
   
   /* Bottom Action Bar */

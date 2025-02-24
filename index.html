@@ -135,7 +135,7 @@ const transactionData = JSON.parse(localStorage.getItem('transactionData'));
   if (transactionData) {
     document.getElementById('recipientName').textContent = transactionData.recipientName;
     document.getElementById('timestamp').textContent = transactionData.timestamp;
-    document.getElementById('feeText').textContent = ` paid ${transactionData.total} ${transactionData.sendCurrency}`;
+    document.getElementById('feeText').textContent = ` - ${transactionData.total} ${transactionData.sendCurrency}`;
     document.getElementById('totalAmount').textContent = `- ${transactionData.total} ${transactionData.sendCurrency}`;
     document.getElementById('recipientAvatar').textContent = transactionData.avatarText; 
     // localStorage.removeItem('transactionData'); // Uncomment to clear data after use

@@ -125,6 +125,9 @@
         margin-right: 10px;
         margin-top: 0px;
     }
+
+
+ 
   </style>
 </head>
 <body>
@@ -271,11 +274,18 @@
                         <span class="hello text-white btn bg-dark text-white ">PREFFERED</span>
                         </div>
                     <!-- Payment Type -->
-                    <div class="d-flex align-items-center mb-3">
-                        <!-- Assuming a placeholder icon; replace with actual icon if available -->
+                    <div class="d-flex flex-column gap-3">
+                      <label class="option d-flex align-items-center">
+                        <input type="radio" name="paymentOption" value="goods">
+                        <i class="fa-solid fa-store" style="width: 20px; height: 20px;"></i>
+                        <div class="ms-2">Goods and services payment <small class="text-muted"></small></div>
+                      </label>
+                    
+                      <label class="option d-flex align-items-center">
+                        <input type="radio" name="paymentOption" value="friends">
                         <i class="fa-solid fa-user-group" style="width: 20px; height: 20px;"></i>
-                        
-                        <div class="ms-2">Friends and Family <small class="text-muted">></small></div>
+                        <div class="ms-2">Friends and family <small class="text-muted"></small></div>
+                      </label>
                     </div>
                     <small class="text-muted">Buyer Protection doesn't apply for this payment.<a> More on Buyer Protection </a></small>
                     <!-- Transaction Breakdown -->
@@ -299,7 +309,7 @@
                     </div>
                     <!-- Delivery Information -->
                     <div class="mt-3">
-                        <span>Estimated delivery <span class="text-danger">•</span> In 2-3 hour</span>
+                        <span>Estimated delivery <span class="text-danger">•</span> In 1-2 business day</span>
                     </div>
                     <!-- Exchange Rate -->
                     <div class="mt-3">

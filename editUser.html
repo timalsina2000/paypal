@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Users</title>
+</head>
+<body>
+  <h2>Edit Users</h2>
+  
+  <label>Name:</label>
+  <input type="text" id="name" placeholder="Enter name">
+  <br>
+  <label>Username:</label>
+  <input type="text" id="username" placeholder="Enter username">
+  <br>
+  <label>Avatar Text:</label>
+  <input type="text" id="avatarText" placeholder="Enter avatar text">
+  <br>
+  <button onclick="addUser()">Add User</button>
+  
+  <h3>Users List</h3>
+  <ul id="userList"></ul>
+
+  <script>
+    // Retrieve users from localStorage or initialize an empty array
+    function getUsers() {
+      let data = localStorage.getItem("jsonData");
+      return data ? JSON.parse(data) : [];
+    }
+
+    // Save users to localStorage
+    function saveUsers(users) {
+      localStorage.setItem("jsonData", JSON.stringify(users));
+    }
+
+    // Display users in the list
+    function displayUsers() {
+      let users = getUsers();
+      let list = document.getElementById("userList");
+      list.innerHTML = "";
+      users.forEach((user, index) => {
+        list.innerHTML += `<li>
+          ${user.name} (${user.username}, ${user.avatarText})
+          <button onclick="editUser(${index})">Edit</button>
+          <button onclick="deleteUser(${index})">Delete</button>
+        </li>`;
+      });
+    }
+
+    // CREATE - Add a new user
+    function addUser() {
+      let name = document.getElementById("name").value;
+      let username = document.getElementById("username").value;
+      let avatarText = document.getElementById("avatarText").value;
+      if (name.trim() && username.trim() && avatarText.trim()) {
+        let users = getUsers();
+        users.push({ name, username, avatarText });
+        saveUsers(users);
+        displayUsers();
+      } else {
+        alert("Please fill all fields!");
+      }
+    }
+
+    // UPDATE - Edit an existing user
+    function editUser(index) {
+      let users = getUsers();
+      let newName = prompt("Edit name:", users[index].name);
+      let newUsername = prompt("Edit username:", users[index].username);
+      let newAvatarText = prompt("Edit avatar text:", users[index].avatarText);
+      if (
+        newName !== null && newName.trim() &&
+        newUsername !== null && newUsername.trim() &&
+        newAvatarText !== null && newAvatarText.trim()
+      ) {
+        users[index] = { name: newName, username: newUsername, avatarText: newAvatarText };
+        saveUsers(users);
+        displayUsers();
+      }
+    }
+
+    // DELETE - Remove a user
+    function deleteUser(index) {
+      let users = getUsers();
+      if (confirm("Are you sure you want to delete this user?")) {
+        users.splice(index, 1);
+        saveUsers(users);
+        displayUsers();
+      }
+    }
+
+    // Initial display of users
+    displayUsers();
+  </script>
+</body>
+</html>

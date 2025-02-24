@@ -20,7 +20,7 @@
 
         <!-- Profile -->
         <div class="d-flex align-items-center mt-3">
-            <img src="https://imgs.search.brave.com/HX7R-wFPet1zK2kkckgvf1egrJNo1ZfNIv066BcF6MU/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2JiLzYx/LzBiL2JiNjEwYmJj/MjQ3ZDMxMTFlZWU1/N2M0MGRkMTQ5MmI1/LmpwZw" alt="Profile" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+          <div id="recipientAvatar" class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-3" style="width:50px; height:50px; font-size:1.5rem;"></div>
             <div>
                 <h6 class="mb-0" id="recipientName">Rajan Sharma</h6>
                 <small class="text-muted" id="timestamp" style="font-size: 10px;">Jan 30, 09:43 AM</small>
@@ -59,6 +59,7 @@
     document.getElementById('timestamp').textContent = transactionData.timestamp;
     document.getElementById('feeText').textContent = `You paid a ${transactionData.fee} ${transactionData.sendCurrency} transaction fee.`;
     document.getElementById('totalAmount').textContent = `- ${transactionData.total} ${transactionData.sendCurrency}`;
+    document.getElementById('recipientAvatar').textContent = transactionData.avatarText; 
     // localStorage.removeItem('transactionData'); // Uncomment to clear data after use
   } else {
     console.log("No transaction data found in localStorage.");

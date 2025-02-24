@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .profile-header {
+            background: url('./download.jpg');
+            height: 150px;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+        }
+        .image-container{
+            display: block;
+            height: 20%;
+            width: 20%;
+        }
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .profile-info {
+            text-align: center;
+            margin-top: 60px;
+        }
+        .profile-info h3 {
+            font-weight: bold;
+        }
+        .profile-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        .list-group-item {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="profile-header">
+    <div class="image-container">
+        <img src="./alisekh.jpg" alt="Profile Picture" class="profile-pic">
+
+    </div>
+</div>
+    
+   
+
+    <div class="profile-info">
+        <h3>Ali Seikh</h3>
+        <p class="text-primary">@aliseikhdubai6</p>
+        <button class="btn btn-outline-dark btn-sm">Edit</button>
+    </div>
+
+    <div class="profile-card shadow">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="bi bi-person"></i> Personal info</li>
+            <li class="list-group-item"><i class="bi bi-shield-lock"></i> Login and security</li>
+            <li class="list-group-item"><i class="bi bi-eye"></i> Data and Privacy</li>
+            <li class="list-group-item"><i class="bi bi-bell"></i> Notification Preferences</li>
+            <li class="list-group-item"><i class="bi bi-cash-stack"></i> Marketing Preferences</li>
+            <li class="list-group-item"><i class="bi bi-pen"></i> <a href="editUser.html"> Edit Contact</a></li>
+            <li class="list-group-item"><i class="bi bi-question-circle"></i> Help</li>
+            <li class="list-group-item text-danger"><i class="bi bi-trash"></i> Close your account</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+</body>
+</html>

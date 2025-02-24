@@ -436,6 +436,7 @@
       timestamp: new Date().toLocaleString(),
       recipientName: document.getElementById('userName').textContent,
       recipientUsername: document.getElementById('userUsername').textContent,
+      avatarText: document.getElementById('userAvatar').textContent,
     };
     localStorage.setItem('transactionData', JSON.stringify(transactionData));
     window.location.href = 'statement.html';

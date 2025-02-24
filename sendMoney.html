@@ -141,7 +141,12 @@
   </div>
 
   <script>
+      //retrive suggetion from the local storage 
+      let suggestionsData = JSON.parse(localStorage.getItem("jsonData"));
+
+
     // Example data that might come from an API
+    if (!suggestionsData || !suggestionsData.length) {
     const suggestionsData = [
       { name: 'Rajan Sharma', username: '@hancyrajan', avatarText: 'RS' },
       { name: 'Vivek Chaudhary', username: '@VivekChaudhary996', avatarText: 'VC' },
@@ -156,6 +161,10 @@
       { name: 'Casheeq Enterprise', username: '@QGenius', avatarText: 'CE' },
       { name: 'Mohammed Nisar', username: '@saban1234', avatarText: 'MN' }
     ];
+    }
+
+  
+
     
     const searchInput = document.getElementById('searchInput');
     const suggestionList = document.getElementById('suggestionList');
@@ -219,7 +228,9 @@
     
     // Initial render
     renderSuggestions(suggestionsData);
-    
+
+
+   
     // Filter suggestions on input
     searchInput.addEventListener('input', function () {
       const query = this.value.toLowerCase().trim();

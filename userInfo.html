@@ -439,7 +439,7 @@
       avatarText: document.getElementById('userAvatar').textContent,
     };
     localStorage.setItem('transactionData', JSON.stringify(transactionData));
-    window.location.href = 'statement.html';
+    window.location.href = 'statement.html','index.html';
 
 
     let transactions = JSON.parse(localStorage.getItem('transactions')) || [];

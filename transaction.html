@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Transaction History</title>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+ <style>
+                    .bottom-action-bar {
+                    
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 20px;
+                }
+
+                .bottom-action-bar button {
+                    width: 48%;
+                    padding: 15px;
+                    border: none;
+                    background: black;
+                    color: white;
+                    font-size: 16px;
+                    font-weight: bold;
+                    border-radius: 30px;
+                    cursor: pointer;
+                }
+
+
+                .bottom-action-bar .send-btn {
+                margin-right: 10px;
+                }
+
+                /* Bottom Navigation Bar */
+                .bottom-nav {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                background-color: #fff;
+                border-top: 1px solid #ddd;
+                height: 60px;
+                }
+
+                .bottom-nav .nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                color: #888;
+                text-decoration: none;
+                font-size: 0.8rem;
+                }
+
+                .bottom-nav .nav-item i {
+                font-size: 1.2rem;
+                margin-bottom: 2px;
+                }
+ </style>
+<body style="background-color: #f8f9fa; margin-bottom: 120px;">
+  <div class="container py-3" style="max-width: 500px;">
+    <!-- Page Title -->
+    <h5 class="mb-3">Transactions</h5>
+
+    <!-- Transaction List -->
+    <div id="transactionList"></div>
+  </div>
+
+  <!-- Bottom Buttons (Send, Request) -->
+  <div class="fixed-bottom">
+    <!-- Black Buttons Row -->
+   
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+        <a href="#" class="nav-item">
+          <i class="fas fa-dollar-sign"></i>
+          <span>Payments</span>
+        </a>
+        <a href="#" class="nav-item">
+          <i class="fas fa-wallet"></i>
+          <span>Wallet</span>
+        </a>
+      </nav>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Retrieve transaction data from localStorage
+      const transactionData = JSON.parse(localStorage.getItem("transactionData"));
+      
+      if (transactionData) {
+        const transactionList = document.getElementById("transactionList");
+
+        // Build a single transaction item in the style shown
+        const transactionHTML = `
+          <div
+            class="bg-white p-3 mb-2 d-flex align-items-center justify-content-between"
+            style="border-radius: 8px;"
+          >
+            <div class="d-flex align-items-center">
+              <!-- Circle Avatar with Icon -->
+              <div
+                style="
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  background-color: #007bff;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin-right: 10px;
+                "
+              >
+                <i class="fa fa-envelope text-white"></i>
+              </div>
+              <div>
+                <!-- Name, Date, Payment label -->
+                <div class="fw-bold">${transactionData.recipientName}</div>
+                <div class="text-muted small">${transactionData.timestamp}</div>
+                <div class="text-muted small">Payment</div>
+              </div>
+            </div>
+
+            <!-- Amount on the right side -->
+            <div class="text-end">
+              <div class="text-danger fw-bold">
+                - ${transactionData.total} ${transactionData.sendCurrency}
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // Insert into the page
+        transactionList.innerHTML = transactionHTML;
+      } else {
+        document.getElementById("transactionList").innerHTML =
+          `<p class="text-muted">No recent transactions.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

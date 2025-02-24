@@ -59,10 +59,17 @@
     margin-top: 15px ;
 
   }
+  .link1{
+    text-decoration: none;
+    color: rgb(9, 9, 9);
+  }
+
   a{
     text-decoration: none;
     color: white;
   }
+
+
   .balance-card {
    display: flex;
     text-align: left;
@@ -223,7 +230,7 @@
   .transaction-date,
   .transaction-type {
     font-size: 0.85rem;
-    color: #888;
+    color: #888;  
   }
   
   .transaction-amount {
@@ -231,7 +238,7 @@
   }
   
   .transaction-amount.negative {
-    color: #d9534f; /* Red for negative amounts */
+    color: #4fd95a; /* Red for negative amounts */
   }
   
   /* Bottom Action Bar */

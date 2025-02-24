@@ -80,6 +80,17 @@
 
     <!-- Transactions Section -->
         <section class="section transactions">
+         <a class="link1" href="transaction.html">
+          <div class="transaction">
+            <div class="transaction-info">
+              <p class="transaction-title" id="recipientName">TikTok Inc.</p>
+              <p class="transaction-date" id="timestamp">22 Feb</p>
+              <p class="transaction-type" >Payment</p>
+              
+            </div>
+            <p class="transaction-amount negative" id="feeText"></p>
+          </div>   </a>
+
           <div class="transaction">
             <div class="transaction-info">
               <p class="transaction-title">TikTok Inc.</p>
@@ -87,14 +98,6 @@
               <p class="transaction-type">Payment</p>
             </div>
             <div class="transaction-amount negative">-US$41.20</div>
-          </div>
-          <div class="transaction">
-            <div class="transaction-info">
-              <p class="transaction-title">TikTok Inc.</p>
-              <p class="transaction-date">22 Feb</p>
-              <p class="transaction-type">Payment</p>
-            </div>
-            <div class="transaction-amount negative">-US$1.00</div>
           </div>
         </section>
 
@@ -126,6 +129,19 @@
  
 
   <!-- Optional JavaScript -->
-  <script ></script>
+  <script >
+
+const transactionData = JSON.parse(localStorage.getItem('transactionData'));
+  if (transactionData) {
+    document.getElementById('recipientName').textContent = transactionData.recipientName;
+    document.getElementById('timestamp').textContent = transactionData.timestamp;
+    document.getElementById('feeText').textContent = ` paid ${transactionData.total} ${transactionData.sendCurrency}`;
+    document.getElementById('totalAmount').textContent = `- ${transactionData.total} ${transactionData.sendCurrency}`;
+    document.getElementById('recipientAvatar').textContent = transactionData.avatarText; 
+    // localStorage.removeItem('transactionData'); // Uncomment to clear data after use
+  } else {
+    console.log("No transaction data found in localStorage.");
+  }
+  </script>
 </body>
 </html>

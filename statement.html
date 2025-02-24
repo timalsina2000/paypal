@@ -52,6 +52,7 @@
                 <h6 class="mb-0" id="recipientName">Rajan Sharma</h6>
                 <small class="text-muted" id="timestamp" style="font-size: 10px;">Jan 30, 09:43 AM</small>
                 <p class="text-muted small" id="feeText" style="width: 200%">You paid a A$6.38 transaction fee.</p>
+                <p class="text-muted small" id="totalAmount" style="width: 200%"></p>
                 <a class="text-primary" style="font-weight: bold;">View History</a>
             </div>
             <div style="text-align: right; width: 300px;">
@@ -68,8 +69,8 @@
 
         <!-- Options -->
         <div class="mt-4 border-top pt-3">
-            <a href="#" class="d-block text-decoration-none mb-2 text-dark"><i class="fa fa-user text-primary" style="padding: 10px;"></i>Report :</a>
-            <a href="#" class="d-block text-black text-decoration-none mb-2"><i class="fa fa-ban text-primary" style="padding: 10px;"></i>Block Rajan</a>
+            <a href="#" class="d-block text-decoration-none mb-2 text-dark" ><i class="fa fa-user text-primary" style="padding: 10px;"></i>Report </a>
+            <a href="#" class="d-block text-black text-decoration-none mb-2"><i class="fa fa-ban text-primary" style="padding: 10px;"></i>Block </a>
         </div>
         <div>
           <a href="#" class="d-block text-black text-decoration-none"><i class="fas fa-triangle-exclamation text-primary" style="padding: 10px;"></i>Report a Problem</a>
@@ -84,7 +85,7 @@
   if (transactionData) {
     document.getElementById('recipientName').textContent = transactionData.recipientName;
     document.getElementById('timestamp').textContent = transactionData.timestamp;
-    document.getElementById('feeText').textContent = `You paid a ${transactionData.fee} ${transactionData.sendCurrency} transaction fee.`;
+    document.getElementById('feeText').textContent = `paid  ${transactionData.fee} ${transactionData.sendCurrency} `;
     document.getElementById('totalAmount').textContent = `- ${transactionData.total} ${transactionData.sendCurrency}`;
     document.getElementById('recipientAvatar').textContent = transactionData.avatarText; 
     // localStorage.removeItem('transactionData'); // Uncomment to clear data after use

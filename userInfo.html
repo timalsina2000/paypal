@@ -5,8 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Send Money</title>
   <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"  rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+  />
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
   <style>
     body {
       background-color: #f8f9fa;
@@ -72,28 +78,22 @@
       border-radius: 9999px;
       font-weight: 600;
     }
-    /* Custom styling for the modal */
     .modal-content {
       border-radius: 20px;
     }
-
-    #icon1{
-        height: 20px;
-        width: 20px;
-        margin-top: 0px;
-        
-
+    #icon1 {
+      height: 20px;
+      width: 20px;
+      margin-top: 0px;
     }
-    .hello{
-        margin-left: 10px;
-        height: 30px;
-        padding: 2px;
-        font-weight: small;  
-      }
-  
-
-      .card-logo {
-      width: 40px;    /* Adjust as needed */
+    .hello {
+      margin-left: 10px;
+      height: 30px;
+      padding: 2px;
+      font-weight: small;  
+    }
+    .card-logo {
+      width: 40px;
       height: auto;
       vertical-align: middle;
       margin-right: 10px;
@@ -101,33 +101,44 @@
     .card-title {
       font-size: 16px;
       font-weight: bold;
-      color: #0070c9; /* Same color as the border */
+      color: #0070c9; 
       margin: 0;
       padding: 0;
     }
-
-    /* Subtitle (“Debit ••4782”) styling */
     .card-subtitle {
       font-size: 14px;
       color: #333;
       margin: 0;
       padding: 0;
     }
-
-    /* Layout for text next to the logo */
     .card-text {
       display: inline-block;
       vertical-align: middle;
     }
-    .image3{
-        height: 20px;
-        width: 20px;
-        margin-right: 10px;
-        margin-top: 0px;
+    .image3 {
+      height: 20px;
+      width: 20px;
+      margin-right: 10px;
+      margin-top: 0px;
     }
 
-
- 
+    /* Processing Overlay (hidden by default) */
+    #processingOverlay {
+      position: fixed;
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background-color: #fff; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      z-index: 9999;
+    }
+    /* Hide it by default using Bootstrap’s d-none */
+    .d-none {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -224,115 +235,143 @@
 
         <!-- Option 1: PayPal Balance -->
         <div class="d-flex align-items-center mb-3">
-          <!-- Icon (optional) -->
           <input type="radio" name="paymentMethod" id="paypalOption" class="mr-2">
-          <img class="d-flex mt-0" id="icon1" src="paypal.svg">
+          <img class="d-flex mt-0" id="icon1" src="paypal.svg" alt="PayPal">
           <div class="p-3">
-            <div>
             <div class="mr-5">PayPal balance</div>
-            <span class="hello text-white btn bg-dark text-white ">PREFFERED</span>
-            </div>
-            <small >+ 0.67 $ USD fee</small>
+            <span class="hello text-white btn bg-dark">PREFFERED</span>
+            <br>
+            <small>+ 0.67 $ USD fee</small>
           </div>
         </div>
 
         <!-- Divider -->
         <hr />
 
-        <!-- Option 2: Add a payment method -->
+        <!-- Option 2: Mastercard -->
         <div class="d-flex align-items-center mt-3">
           <input type="radio" name="paymentMethod" id="mastercardOption" class="mr-2">
-          
-            <div>
-                <div class="card-container">
-                <!-- You can replace the src with any MasterCard logo URL or your own image path -->
-                <img class="card-logo" 
-                    src="master-card.png" 
-                    alt="Mastercard Logo" />
-                
-                <div class="card-text">
+          <div>
+            <div class="card-container d-flex align-items-center">
+              <img 
+                class="card-logo" 
+                src="master-card.png" 
+                alt="Mastercard Logo" 
+              />
+              <div class="card-text">
                 <p class="card-title">Mastercard</p>
                 <p class="card-subtitle">Debit ••4782</p>
-                </div>
               </div>
             </div>
+          </div>
         </div>
 
-          
+        <!-- Review Modal -->
+        <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+            <div class="modal-content">
+              <div class="modal-header border-0">
+                <h5 class="modal-title" id="reviewModalLabel">Review</h5>
+                <button 
+                  type="button" 
+                  class="btn-close" 
+                  data-bs-dismiss="modal" 
+                  aria-label="Close">
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- Payment Method Section -->
+                <div class="d-flex align-items-center mb-3">
+                  <img class="image3" src="paypal.svg" alt="PayPal">
+                  <div class="mr-5">PayPal balance</div>
+                  <span class="hello text-white btn bg-dark">PREFFERED</span>
+                </div>
 
-          <!-- Review Modal -->
-            <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
-                <div class="modal-content">
-                    <div class="modal-header border-0">
-                    <h5 class="modal-title" id="reviewModalLabel">Review</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    <!-- Payment Method Section -->
-                    <div class="d-flex">
-                        <img class="image3" src="paypal.svg" alt="paypal.svg">
-                        <div class="mr-5">PayPal balance</div>
-                        <span class="hello text-white btn bg-dark text-white ">PREFFERED</span>
-                        </div>
-                    <!-- Payment Type -->
-                    <div class="d-flex flex-column gap-3">
-                      <label class="option d-flex align-items-center">
-                        <input type="radio" name="paymentOption" value="goods">
-                        <i class="fa-solid fa-store" style="width: 20px; height: 20px;"></i>
-                        <div class="ms-2">Goods and services payment <small class="text-muted"></small></div>
-                      </label>
-                    
-                      <label class="option d-flex align-items-center">
-                        <input type="radio" name="paymentOption" value="friends">
-                        <i class="fa-solid fa-user-group" style="width: 20px; height: 20px;"></i>
-                        <div class="ms-2">Friends and family <small class="text-muted"></small></div>
-                      </label>
-                    </div>
-                    <small class="text-muted">Buyer Protection doesn't apply for this payment.<a> More on Buyer Protection </a></small>
-                    <!-- Transaction Breakdown -->
-                    <div class="mt-3">
-                        <div class="d-flex justify-content-between">
-                        <span>Amount in <span id="reviewSendCurrency"></span></span>
-                        <span id="reviewAmount"></span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                        <span>PayPal fee <i class="bi bi-info-circle"></i></span>
-                        <span id="reviewFee"></span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                        <span>Total</span>
-                        <span id="reviewTotal"></span>
-                        </div>
-                    </div>
-                    <!-- They Will Receive -->
-                    <div class="mt-3">
-                        <span>They will receive: <span id="reviewReceiveAmount"></span></span>
-                    </div>
-                    <!-- Delivery Information -->
-                    <div class="mt-3">
-                        <span>Estimated delivery <span class="text-danger">•</span> In 1-2 business day</span>
-                    </div>
-                    <!-- Exchange Rate -->
-                    <div class="mt-3">
-                        <span>Exchange rate: <span id="reviewExchangeRate"></span></span>
-                    </div>
-                    </div>
-                    <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-primary w-100 btn-dark" id="sendBtn">Send</button>
-                    </div>
+                <!-- Payment Type (Goods or Friends) -->
+                <div class="d-flex flex-column gap-3">
+                  <label class="option d-flex align-items-center">
+                    <input type="radio" name="paymentOption" value="goods">
+                    <i class="fa-solid fa-store" style="width: 20px; height: 20px; margin-left:5px;"></i>
+                    <div class="ms-2">Goods and services payment</div>
+                  </label>
+                  <label class="option d-flex align-items-center">
+                    <input type="radio" name="paymentOption" value="friends">
+                    <i class="fa-solid fa-user-group" style="width: 20px; height: 20px; margin-left:5px;"></i>
+                    <div class="ms-2">Friends and family</div>
+                  </label>
                 </div>
+                <small class="text-muted">
+                  Buyer Protection doesn't apply for this payment.
+                  <a href="#">More on Buyer Protection</a>
+                </small>
+
+                <!-- Transaction Breakdown -->
+                <div class="mt-3">
+                  <div class="d-flex justify-content-between">
+                    <span>Amount in <span id="reviewSendCurrency"></span></span>
+                    <span id="reviewAmount"></span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>PayPal fee</span>
+                    <span id="reviewFee"></span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Total</span>
+                    <span id="reviewTotal"></span>
+                  </div>
                 </div>
+
+                <!-- They Will Receive -->
+                <div class="mt-3">
+                  <span>They will receive: <span id="reviewReceiveAmount"></span></span>
+                </div>
+
+                <!-- Delivery Information -->
+                <div class="mt-3">
+                  <span>Estimated delivery <span class="text-danger">•</span> In 1-2 business days</span>
+                </div>
+
+                <!-- Exchange Rate -->
+                <div class="mt-3">
+                  <span>Exchange rate: <span id="reviewExchangeRate"></span></span>
+                </div>
+              </div>
+              <div class="modal-footer border-0">
+                <button 
+                  type="button" 
+                  class="btn btn-primary w-100 btn-dark" 
+                  id="sendBtn">
+                  Send
+                </button>
+              </div>
             </div>
+          </div>
+        </div>
       </div>
-
       <!-- Modal Footer -->
       <div class="modal-footer border-0">
-        <button type="button" class="btn btn-primary w-100 btn-next btn-dark" id="payNextBtn">
+        <button 
+          type="button" 
+          class="btn btn-primary w-100 btn-next btn-dark" 
+          id="payNextBtn">
           Next
         </button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Processing Overlay (hidden by default) -->
+<div 
+  id="processingOverlay" 
+  class="d-none"
+>
+  <div class="text-center">
+    <!-- Spinner -->
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Processing your payment...</p>
   </div>
 </div>
 
@@ -342,142 +381,147 @@
 </script>
 
 <script>
-    // Retrieve selected user from localStorage
-    const selectedUser = JSON.parse(localStorage.getItem('selectedUser'));
-    if (selectedUser) {
-      document.getElementById('userAvatar').textContent = selectedUser.avatarText;
-      document.getElementById('userName').textContent = selectedUser.name;
-      document.getElementById('userUsername').textContent = selectedUser.username;
-    }
-    
-    // Mock exchange rates (for demonstration)
-    const exchangeRates = {
-      EUR: { EUR: 1, USD: 1.1, GBP: 0.86, AUD: 1.57 },
-      USD: { EUR: 0.91, USD: 1, GBP: 0.78, AUD: 1.43 },
-      GBP: { EUR: 1.16, USD: 1.28, GBP: 1, AUD: 1.84 },
-      AUD: { EUR: 0.64, USD: 0.70, GBP: 0.54, AUD: 1 }
-    };
-  
-    // Element references
-    const sendAmountEl = document.getElementById('sendAmount');
-    const sendCurrencyEl = document.getElementById('sendCurrency');
-    const receiveAmountEl = document.getElementById('receiveAmount');
-    const receiveCurrencyEl = document.getElementById('receiveCurrency');
-    const conversionRateDisplay = document.getElementById('conversionRateDisplay');
-    const nextBtn = document.getElementById('nextBtn');
-    const payNextBtn = document.getElementById('payNextBtn');
-    
-    // Variable to store selected payment method
-    let selectedPaymentMethod = null;
-  
-    // Calculate and display the receive amount and conversion rate
-    function calculateReceiveAmount() {
-      const sendCurrency = sendCurrencyEl.value;
-      const receiveCurrency = receiveCurrencyEl.value;
-      const sendAmount = parseFloat(sendAmountEl.value) || 0;
-      const rate = exchangeRates[sendCurrency][receiveCurrency] || 1;
-      const converted = (sendAmount * rate).toFixed(2);
-      receiveAmountEl.value = converted;
-      conversionRateDisplay.textContent = `Conversion Rate: 1 ${sendCurrency} = ${rate.toFixed(4)} ${receiveCurrency}`;
-    }
-    
-    // Event listeners for input changes
-    sendAmountEl.addEventListener('input', calculateReceiveAmount);
-    sendCurrencyEl.addEventListener('change', calculateReceiveAmount);
-    receiveCurrencyEl.addEventListener('change', calculateReceiveAmount);
-    
-    // Initial calculation
-    calculateReceiveAmount();
-    
-    // Show payment modal when "Next" button is clicked
-    nextBtn.addEventListener('click', () => {
-      const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-      paymentModal.show();
-    });
-  
-   
-  
-    // Function to populate the review modal
-    function populateReviewModal() {
-      const sendAmount = parseFloat(sendAmountEl.value) || 0;
-      const sendCurrency = sendCurrencyEl.value;
-      const receiveCurrency = receiveCurrencyEl.value;
-      const rate = exchangeRates[sendCurrency][receiveCurrency] || 1;
-      const receiveAmount = (sendAmount * rate).toFixed(2);
-      
-      // Calculate fee based on selected payment method
-      const  fee = 0.67;
-      
-      const total = (sendAmount + fee).toFixed(2);
-      
-      
-      // Update transaction details
-      document.getElementById('reviewSendCurrency').textContent = sendCurrency;
-      document.getElementById('reviewAmount').textContent = `${sendAmount.toFixed(2)} ${sendCurrency}`;
-      document.getElementById('reviewFee').textContent = `${fee.toFixed(2)} ${sendCurrency}`;
-      document.getElementById('reviewTotal').textContent = `${total} ${sendCurrency}`;
-      document.getElementById('reviewReceiveAmount').textContent = `${receiveAmount} ${receiveCurrency}`;
-      document.getElementById('reviewExchangeRate').textContent = `1 ${sendCurrency} = ${rate.toFixed(4)} ${receiveCurrency}`;
-    }
-  
-    // Handle "Next" inside payment modal to show review modal
-    payNextBtn.addEventListener('click', () => {
-      populateReviewModal();
+  // Retrieve selected user from localStorage
+  const selectedUser = JSON.parse(localStorage.getItem('selectedUser'));
+  if (selectedUser) {
+    document.getElementById('userAvatar').textContent = selectedUser.avatarText;
+    document.getElementById('userName').textContent = selectedUser.name;
+    document.getElementById('userUsername').textContent = selectedUser.username;
+  }
+
+  // Mock exchange rates (for demonstration)
+  const exchangeRates = {
+    EUR: { EUR: 1,    USD: 1.1,  GBP: 0.86, AUD: 1.57 },
+    USD: { EUR: 0.91, USD: 1,    GBP: 0.78, AUD: 1.43 },
+    GBP: { EUR: 1.16, USD: 1.28, GBP: 1,    AUD: 1.84 },
+    AUD: { EUR: 0.64, USD: 0.70, GBP: 0.54, AUD: 1    }
+  };
+
+  // Element references
+  const sendAmountEl = document.getElementById('sendAmount');
+  const sendCurrencyEl = document.getElementById('sendCurrency');
+  const receiveAmountEl = document.getElementById('receiveAmount');
+  const receiveCurrencyEl = document.getElementById('receiveCurrency');
+  const conversionRateDisplay = document.getElementById('conversionRateDisplay');
+  const nextBtn = document.getElementById('nextBtn');
+  const payNextBtn = document.getElementById('payNextBtn');
+
+  // Calculate and display the receive amount and conversion rate
+  function calculateReceiveAmount() {
+    const sendCurrency = sendCurrencyEl.value;
+    const receiveCurrency = receiveCurrencyEl.value;
+    const sendAmount = parseFloat(sendAmountEl.value) || 0;
+    const rate = exchangeRates[sendCurrency][receiveCurrency] || 1;
+    const converted = (sendAmount * rate).toFixed(2);
+    receiveAmountEl.value = converted;
+    conversionRateDisplay.textContent = 
+      `Conversion Rate: 1 ${sendCurrency} = ${rate.toFixed(4)} ${receiveCurrency}`;
+  }
+
+  // Event listeners for input changes
+  sendAmountEl.addEventListener('input', calculateReceiveAmount);
+  sendCurrencyEl.addEventListener('change', calculateReceiveAmount);
+  receiveCurrencyEl.addEventListener('change', calculateReceiveAmount);
+
+  // Initial calculation
+  calculateReceiveAmount();
+
+  // Show payment modal when "Next" button is clicked
+  nextBtn.addEventListener('click', () => {
+    const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+    paymentModal.show();
+  });
+
+  // Populate the review modal with data
+  function populateReviewModal() {
+    const sendAmount = parseFloat(sendAmountEl.value) || 0;
+    const sendCurrency = sendCurrencyEl.value;
+    const receiveCurrency = receiveCurrencyEl.value;
+    const rate = exchangeRates[sendCurrency][receiveCurrency] || 1;
+    const receiveAmount = (sendAmount * rate).toFixed(2);
+
+    // Hard-coded fee for demonstration
+    const fee = 0.67;
+    const total = (sendAmount + fee).toFixed(2);
+
+    // Update transaction details in the review modal
+    document.getElementById('reviewSendCurrency').textContent = sendCurrency;
+    document.getElementById('reviewAmount').textContent = 
+      `${sendAmount.toFixed(2)} ${sendCurrency}`;
+    document.getElementById('reviewFee').textContent = 
+      `${fee.toFixed(2)} ${sendCurrency}`;
+    document.getElementById('reviewTotal').textContent = 
+      `${total} ${sendCurrency}`;
+    document.getElementById('reviewReceiveAmount').textContent = 
+      `${receiveAmount} ${receiveCurrency}`;
+    document.getElementById('reviewExchangeRate').textContent = 
+      `1 ${sendCurrency} = ${rate.toFixed(4)} ${receiveCurrency}`;
+  }
+
+  // Handle "Next" inside payment modal to show review modal
+  payNextBtn.addEventListener('click', () => {
+    populateReviewModal();
     const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
     reviewModal.show();
-    });
-  
-    // Handle "Send" button in review modal
-    document.getElementById('sendBtn').addEventListener('click', () => {
-      const sendAmount = sendAmountEl.value;
-      const sendCurrency = sendCurrencyEl.value;
-      const receiveAmount = receiveAmountEl.value;
-      const receiveCurrency = receiveCurrencyEl.value;
-      const message = document.getElementById('message').value;
-      const fee = 0.67;
-      const total = (parseFloat(sendAmount) + fee).toFixed(2);
-      
-      const transactionData = {
-      sendAmount: sendAmount,
-      sendCurrency: sendCurrency,
-      receiveAmount: receiveAmount,
-      receiveCurrency: receiveCurrency,
-      total: total,
-      fee: fee,
-      message: message,
+  });
+
+  // Handle "Send" button in review modal
+  document.getElementById('sendBtn').addEventListener('click', () => {
+    // 1. Gather transaction data
+    const sendAmount = parseFloat(sendAmountEl.value) || 0;
+    const sendCurrency = sendCurrencyEl.value;
+    const receiveAmount = parseFloat(receiveAmountEl.value) || 0;
+    const receiveCurrency = receiveCurrencyEl.value;
+    const message = document.getElementById('message').value;
+    const fee = 0.67;
+    const total = (sendAmount + fee).toFixed(2);
+
+    const transactionData = {
+      sendAmount: sendAmount.toFixed(2),
+      sendCurrency,
+      receiveAmount: receiveAmount.toFixed(2),
+      receiveCurrency,
+      total,
+      fee: fee.toFixed(2),
+      message,
       timestamp: new Date().toLocaleString(),
       recipientName: document.getElementById('userName').textContent,
       recipientUsername: document.getElementById('userUsername').textContent,
-      avatarText: document.getElementById('userAvatar').textContent,
+      avatarText: document.getElementById('userAvatar').textContent
     };
+
+    // Save in localStorage (for statement page or future reference)
     localStorage.setItem('transactionData', JSON.stringify(transactionData));
-    window.location.href = 'statement.html','index.html';
 
-
+    // Also save in a transaction history array if desired
     let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
     // Create new transaction object for history
     const newTransaction = {
-      recipient: recipientName,
-      date: timestamp,
+      recipient: transactionData.recipientName,
+      date: transactionData.timestamp,
       type: 'Sent',
-      amount: `- ${amount} ${sendCurrency}`
+      amount: `- ${transactionData.sendAmount} ${transactionData.sendCurrency}`
     };
 
     // Add new transaction to the beginning of the array
     transactions.unshift(newTransaction);
-
     // Save updated transactions back to localStorage
     localStorage.setItem('transactions', JSON.stringify(transactions));
 
+    // 2. Hide the review modal
+    const reviewModal = bootstrap.Modal.getInstance(document.getElementById('reviewModal'));
+    reviewModal.hide();
 
+    // 3. Show the “Processing your payment...” overlay
+    const processingOverlay = document.getElementById('processingOverlay');
+    processingOverlay.classList.remove('d-none');
 
-
-
-    
-      const reviewModal = bootstrap.Modal.getInstance(document.getElementById('reviewModal'));
-      reviewModal.hide();
-    });
-  </script>
+    // 4. Simulate processing delay, then redirect
+    setTimeout(() => {
+      window.location.href = 'statement.html';
+    }, 3000);
+  });
+</script>
 </body>
 </html>

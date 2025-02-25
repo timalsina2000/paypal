@@ -157,7 +157,7 @@
       let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
       transactions = transactions.filter(txn => txn.recipientName); // Remove empty entries
       localStorage.setItem("selectedTransaction", JSON.stringify(transactions[index]));
-      window.location.href = "statement.html";
+      window.location.href = "Viewstatement.html";
     }
   
     // Function to clear all transactions (Optional: Add a button to call this)

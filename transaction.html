@@ -94,8 +94,10 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // Retrieve transactions from localStorage, or initialize as an empty array if none exists
       let transactions = JSON.parse(localStorage.getItem("transactionData")) || [];
   
+      // Ensure transactions is an array (for cases where a single transaction might have been stored)
       if (!Array.isArray(transactions)) {
         transactions = [transactions];
       }
@@ -105,7 +107,8 @@
       if (transactions.length > 0) {
         let transactionHTML = "";
   
-        transactions.slice(-6).forEach((transactionData, index) => {
+        // Loop over all transactions to display them
+        transactions.forEach((transactionData, index) => {
           transactionHTML += `
             <div
               class="bg-white p-3 mb-2 d-flex align-items-center justify-content-between"
@@ -162,7 +165,6 @@
       window.location.href = "statement.html";
     }
   </script>
-  
   
 </body>
 </html>

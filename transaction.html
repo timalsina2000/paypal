@@ -5,166 +5,171 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Transaction History</title>
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
- <style>
-                    .bottom-action-bar {
-                    
-                    display: flex;
-                    justify-content: space-between;
-                    margin-top: 20px;
-                }
-
-                .bottom-action-bar button {
-                    width: 48%;
-                    padding: 15px;
-                    border: none;
-                    background: black;
-                    color: white;
-                    font-size: 16px;
-                    font-weight: bold;
-                    border-radius: 30px;
-                    cursor: pointer;
-                }
-
-
-                .bottom-action-bar .send-btn {
-                margin-right: 10px;
-                }
-
-                /* Bottom Navigation Bar */
-                .bottom-nav {
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                background-color: #fff;
-                border-top: 1px solid #ddd;
-                height: 60px;
-                }
-
-                .bottom-nav .nav-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                color: #888;
-                text-decoration: none;
-                font-size: 0.8rem;
-                }
-
-                .bottom-nav .nav-item i {
-                font-size: 1.2rem;
-                margin-bottom: 2px;
-                }
- </style>
+<style>
+  .bottom-action-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .bottom-action-bar button {
+    width: 48%;
+    padding: 15px;
+    border: none;
+    background: black;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  .bottom-action-bar .send-btn {
+    margin-right: 10px;
+  }
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    height: 60px;
+  }
+  .bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #888;
+    text-decoration: none;
+    font-size: 0.8rem;
+  }
+  .bottom-nav .nav-item i {
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+  }
+</style>
 <body style="background-color: #f8f9fa; margin-bottom: 120px;">
   <div class="container py-3" style="max-width: 500px;">
     <!-- Page Title -->
     <h5 class="mb-3">Transactions</h5>
 
-    <!-- Transaction List -->
-    <div id="transactionList"></div>
+<!-- Transaction List -->
+<div id="transactionList"></div>
   </div>
+  <!-- <button onclick="clearTransactions()" class="btn btn-danger">Clear Transactions</button> -->
 
-  <!-- Bottom Buttons (Send, Request) -->
-  <div class="fixed-bottom">
-    <!-- Black Buttons Row -->
-   
-
-    <!-- Bottom Navigation Bar -->
-    <nav class="bottom-nav">
-        <a href="index.html" class="nav-item active">
-          <i class="fas fa-home"></i>
-          <span>Home</span>
-        </a>
-        <a href="#" class="nav-item">
-          <i class="fas fa-dollar-sign"></i>
-          <span>Payments</span>
-        </a>
-        <a href="#" class="nav-item">
-          <i class="fas fa-wallet"></i>
-          <span>Wallet</span>
-        </a>
-      </nav>
-  </div>
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav fixed-bottom">
+    <a href="index.html" class="nav-item active">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="#" class="nav-item">
+      <i class="fas fa-dollar-sign"></i>
+      <span>Payments</span>
+    </a>
+    <a href="#" class="nav-item">
+      <i class="fas fa-wallet"></i>
+      <span>Wallet</span>
+    </a>
+  </nav>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Retrieve transactions from localStorage, or initialize as an empty array if none exists
-      let transactions = JSON.parse(localStorage.getItem("transactionData")) || [];
+      // 1. Check if there's new transaction data stored under "transactionData"
+      let newTxn = JSON.parse(localStorage.getItem("transactionData"));
   
-      // Ensure transactions is an array (for cases where a single transaction might have been stored)
-      if (!Array.isArray(transactions)) {
-        transactions = [transactions];
+      if (newTxn && newTxn.recipientName) { // Ensure transaction has valid data
+        let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+        
+        // Make sure it's an array
+        if (!Array.isArray(transactions)) {
+          transactions = [];
+        }
+  
+        // Create a complete transaction object
+        const completeTransaction = {
+          recipientName: newTxn.recipientName || "Unknown",
+          timestamp: newTxn.timestamp || new Date().toLocaleString(),
+          fee: newTxn.fee || "0",
+          sendCurrency: newTxn.sendCurrency || "USD",
+          total: newTxn.total || "0",
+          avatarText: newTxn.avatarText || ""
+        };
+  
+        // Add the new transaction to the beginning of the array
+        transactions.unshift(completeTransaction);
+  
+        // Save updated transactions, filtering out any "undefined" or empty data
+        localStorage.setItem("transactions", JSON.stringify(transactions.filter(txn => txn.recipientName)));
+  
+        // Remove "transactionData" to prevent duplicate entries
+        localStorage.removeItem("transactionData");
       }
   
+      // 2. Retrieve the transactions array for display
+      let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+      
+      // Filter out any invalid or undefined transactions
+      transactions = transactions.filter(txn => txn.recipientName);
+  
       const transactionList = document.getElementById("transactionList");
+      
+      // Clear previous transaction list in the DOM
+      transactionList.innerHTML = "";
   
       if (transactions.length > 0) {
-        let transactionHTML = "";
-  
-        // Loop over all transactions to display them
-        transactions.forEach((transactionData, index) => {
-          transactionHTML += `
-            <div
-              class="bg-white p-3 mb-2 d-flex align-items-center justify-content-between"
-              style="border-radius: 8px; cursor: pointer;"
-              onclick="viewTransaction(${index})"
-            >
-              <div class="d-flex align-items-center">
-                <div
-                  style="
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    background-color: #007bff;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin-right: 10px;
-                  "
-                >
-                  <i class="fa fa-envelope text-white"></i>
-                </div>
-                <div>
-                  <div class="fw-bold">${transactionData.recipientName}</div>
-                  <div class="text-muted small">${transactionData.timestamp}</div>
-                  <div class="text-muted small">Payment</div>
-                </div>
+        transactionList.innerHTML = transactions.map((txn, index) => `
+          <div class="bg-white p-3 mb-2 d-flex align-items-center justify-content-between"
+               style="border-radius: 8px; cursor: pointer;"
+               onclick="viewTransaction(${index})">
+            <div class="d-flex align-items-center">
+              <div style="
+                width: 40px; height: 40px; border-radius: 50%;
+                background-color: #007bff; display: flex; align-items: center;
+                justify-content: center; margin-right: 10px;">
+                <i class="fa fa-envelope text-white"></i>
               </div>
-  
-              <div class="text-end">
-                <div class="text-danger fw-bold">
-                  - ${transactionData.total} ${transactionData.sendCurrency}
-                </div>
+              <div>
+                <div class="fw-bold">${txn.recipientName}</div>
+                <div class="text-muted small">${txn.timestamp}</div>
+                <div class="text-muted small">Payment</div>
               </div>
             </div>
-          `;
-        });
-  
-        transactionList.innerHTML = transactionHTML;
+            <div class="text-end">
+              <div class="text-dark fw-bold">
+                - ${txn.total} ${txn.sendCurrency}
+              </div>
+            </div>
+          </div>
+        `).join("");
       } else {
         transactionList.innerHTML = `<p class="text-muted">No recent transactions.</p>`;
       }
     });
   
+    // Function to view (open) a transaction by index
     function viewTransaction(index) {
-      let transactions = JSON.parse(localStorage.getItem("transactionData")) || [];
-      if (!Array.isArray(transactions)) {
-        transactions = [transactions];
-      }
-  
-      // Store the clicked transaction in localStorage
+      let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+      transactions = transactions.filter(txn => txn.recipientName); // Remove empty entries
       localStorage.setItem("selectedTransaction", JSON.stringify(transactions[index]));
-  
-      // Redirect to statement.html
       window.location.href = "statement.html";
     }
+  
+    // Function to clear all transactions (Optional: Add a button to call this)
+    function clearTransactions() {
+      localStorage.removeItem("transactions");
+      document.getElementById("transactionList").innerHTML = `<p class="text-muted">No recent transactions.</p>`;
+    }
   </script>
+  
+  
+  
+  
   
 </body>
 </html>

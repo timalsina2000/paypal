@@ -191,8 +191,36 @@
   font-size: 16px;
   color: black;
   margin-top: 50px;
-
 }
+#popup-images {
+
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 20px;
+visibility: hidden;
+width: auto;
+height: auto;
+}
+
+.popup-img {
+width: 200px;
+height: auto;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card{
+    position: fixed;
+top: 70%;
+left: 50%;
+transform: translate(-50%, -50%);
+  }
+  .textCont{
+    text-align: center;
+  }
+    
+
+
   </style>
 </head>
 <body>
@@ -232,29 +260,39 @@
     </ul>
   </div>
   <!-- Popup Images -->
-      <div>
-      <h2 style="
-      text-align: center;
-      margin-top: 1px;
-      font-family: 'Arial', sans-serif;
-      color: #0a2a7a;
-      font-weight: 800;
-      font-size: larger;"
-      id="popup-text" class="image-text"
-    ></h2> 
+      <!-- <div>
 
-      <div id="popup-images">
+            <h2 style="
+            text-align: center;
+            margin-top: 1px;
+            font-family: 'Arial', sans-serif;
+            color: #0a2a7a;
+            font-weight: 800;
+            font-size: larger;"
+            id="popup-text" class="image-text"
+          ></h2> 
 
-        <div class="image-container">
-          <img id="popup-img" src="motor.jpg" alt="Popup Image" class="popup-img"/>
+        <div id="popup-images">
 
-          <!-- <p id="popup-text" class="image-text">Motorcycle</p> -->
+          <div class="image-container">
+            <img id="popup-img" src="motor.jpg" alt="Popup Image" class="popup-img"/>
 
-          
+            <p id="popup-text" class="image-text">Motorcycle</p> 
+
+            
+          </div>
+
         </div>
-
+    </div> -->
+    <div class="card">
+      <div class="textCont">
+        <h2 id="popup-text" ></h2>
       </div>
-    </div>
+      <div id="image-container">
+        <img id="popup-img" src="motor.jpg" alt="Popup Image" class="popup-img" />
+      </div>
+      
+   </div>
 
   <script>
     // 1) Retrieve suggestions from localStorage (or use empty array if none)
@@ -393,7 +431,7 @@
 
 // Initial delay before first appearance
 setTimeout(showImages, 1000);
-  </script>
+</script>
 </body>
 </html>
 

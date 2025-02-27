@@ -209,16 +209,17 @@ height: auto;
 border-radius: 10px;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.card{
-    position: fixed;
-top: 70%;
-left: 50%;
-transform: translate(-50%, -50%);
-  }
-  .textCont{
-    text-align: center;
-  }
-    
+    .card{
+        position: fixed;
+       
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+      }
+      .textCont{
+        text-align: center;
+      }
+        
 
 
   </style>
@@ -260,30 +261,7 @@ transform: translate(-50%, -50%);
     </ul>
   </div>
   <!-- Popup Images -->
-      <!-- <div>
-
-            <h2 style="
-            text-align: center;
-            margin-top: 1px;
-            font-family: 'Arial', sans-serif;
-            color: #0a2a7a;
-            font-weight: 800;
-            font-size: larger;"
-            id="popup-text" class="image-text"
-          ></h2> 
-
-        <div id="popup-images">
-
-          <div class="image-container">
-            <img id="popup-img" src="motor.jpg" alt="Popup Image" class="popup-img"/>
-
-            <p id="popup-text" class="image-text">Motorcycle</p> 
-
-            
-          </div>
-
-        </div>
-    </div> -->
+     
     <div class="card">
       <div class="textCont">
         <h2 id="popup-text" ></h2>
@@ -410,10 +388,10 @@ transform: translate(-50%, -50%);
   const text = document.getElementById('popup-text');
 
   let images = [
-    { src: 'motor.jpg', text: 'Motorcycle For 100000$' },
-    { src: 'galaxy.jpg', text: 'Galaxy For 20000$' },
-    { src: 'gun.jpg', text: 'MoneyGun For 10000$' },
-    { src: 'glass.jpg', text: 'Sunglasses For 5000$' }
+    { src: 'motor.jpg', text: 'Motorcycle For 50000$' },
+    { src: 'galaxy.jpg', text: 'Galaxy For 10000$' },
+    { src: 'gun.jpg', text: 'MoneyGun For 5000$' },
+    { src: 'glass.jpg', text: 'Sunglasses For 2000$' }
   ];
 
   let index = 0;

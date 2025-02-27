@@ -89,8 +89,8 @@
   if (transactionData) {
     document.getElementById('recipientName').textContent = transactionData.recipientName;
     document.getElementById('timestamp').textContent = transactionData.timestamp;
-    document.getElementById('feeText').textContent = `paid  ${transactionData.fee} ${transactionData.sendCurrency} `;
-    document.getElementById('totalAmount').textContent = `- ${transactionData.total} ${transactionData.sendCurrency}`;
+    document.getElementById('feeText').textContent = `fee  ${transactionData.fee} ${transactionData.sendCurrency} `;
+    document.getElementById('totalAmount').textContent = `- ${transactionData.total} ${transactionData.sendCurrency} paid`;
     document.getElementById('recipientAvatar').textContent = transactionData.avatarText; 
     // localStorage.removeItem('transactionData'); // Uncomment to clear data after use
   } else {

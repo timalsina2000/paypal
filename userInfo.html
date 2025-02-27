@@ -467,7 +467,7 @@
     const rate = exchangeRates[sendCurrency][receiveCurrency] || 1;
     const receiveAmount = (sendAmount * rate).toFixed(2);
 
-    const fee = 0.67;
+    const fee = 4.67;
     const total = (sendAmount + fee).toFixed(2);
 
     document.getElementById('reviewSendCurrency').textContent = sendCurrency;

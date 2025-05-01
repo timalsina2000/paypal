@@ -1,151 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PayPal Clone</title>
-  <!-- You can use a local stylesheet or link to an external one -->
-  <link rel="stylesheet" href="style.css">
-  <!-- (Optional) Icon library like Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayPal Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .login-container h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .login-btn {
+            background: #0070ba;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .login-btn:hover {
+            background: #005ea6;
+        }
+        .forgot-password {
+            display: block;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #0070ba;
+            text-decoration: none;
+        }
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function login(event) {
+            event.preventDefault();
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            
+            var validEmail = "aliseikh@gmail.com";
+            var validPassword = "ali123";
+            
+            if (email === validEmail && password === validPassword) {
+                document.querySelector('.login-btn').innerText = "Loading...";
+                document.querySelector('.login-btn').disabled = true;
+                setTimeout(function() {
+                    window.location.href = "Home.html";
+                }, 2000); 
+            } else {
+                alert("Invalid email or password");
+            }
+        }
+    </script>
 </head>
-
-
 <body>
-
-
-
-  <!-- Main Container -->
-  <div class="app-container">
-
-    <!-- Header with Profile & Balance -->
-    <header>
-        <div class="profile"> 
-          <a href="./profile.html">
-          
-            <img src="alisekh.jpg" alt="Profile Picture" >
-          
-          </a>
-        </div>
-        <div class="scanner">
-            <span><i class="fa-solid fa-qrcode"></i></span>
-        </div>
-    </header>
-    <div class="balance-card">
-        <div class="flex1">
-            <img  id="icon1" src="paypal.svg">
-        </div>
-        <div class="flex2">
-        <p class="balance-amount">  230,635,486,000 USD</p>
-        <p class="balance-label" >PayPal balance</p>
-    </div>
-      </div>
-
-    <!-- Send Again Section -->
-    <section class="section send-again">
-      <h2>Send again</h2>
-      <div class="contacts">
-        <div class="contact">
-          <img src="image1.jpg" alt="User 1" />
-          <p>Annna</p>
-        </div>
-        <div class="contact">
-          <img src="image2.jpg" alt="User 2" />
-          <p> flexam </p>
-        </div>
-        <div class="contact">
-          <img src="chrristean .jpg" alt="User 3" />
-          <p>Chrristean</p>
-        </div>
-        <div class="contact">
-          <div class="contact-initials">LT</div>
-          <p>thomasbrad_6</p>
-        </div>
-        <div class="contact">
-          <div class="contact-initials">AO</div>
-          <p>Albert_ontario</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Send Money Internationally Section -->
-    <section class="section send-internationally">
-      <h2>Send money internationally</h2>
-      <div class="international-options">
-        <div class="transaction-container">
-        <div class="transction-method1"><button><i class="fas fa-university" id="icccon"></i> </button><div class="tranText">Direct to bank</div></div>
-        <div class="transction-method1"><button><i class="fas fa-hand-holding-usd" id="icccon"></i> </button><div class="tranText">Cash pickup</div></div>
-        <div class="transction-method1"><button><i class="fas fa-mobile-alt" id="icccon"></i> </button><div class="tranText">Mobile money</div></div>
-        <div class="transction-method1"><button><i class="fas fa-phone" id="icccon"></i> </button><div class="tranText">Reload phones</div></div>
-
-    </div>
-      </div>
-    </section>
-
-    <!-- Transactions Section -->
-        <section class="section transactions">
-         <a class="link1" href="transaction.html">
-          <div class="transaction">
-            <div class="transaction-info">
-              <p class="transaction-title" id="recipientName">harry  brook</p>
-              <p class="transaction-date" id="timestamp">22 Feb</p>
-              <p class="transaction-type" >Payment</p>
-              
+    <div class="login-container">
+        <img class="logo" src="https://www.paypalobjects.com/webstatic/icon/pp258.png" width="60" alt="PayPal Logo">
+        <h2>Log in to your PayPal account</h2>
+        <form onsubmit="login(event)">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
             </div>
-            <p class="transaction-amount negative" id="feeText">-US$200</p>
-          </div>   </a>
-
-          <div class="transaction">
-            <div class="transaction-info">
-              <p class="transaction-title">TikTok Inc.</p>
-              <p class="transaction-date">22 Feb</p>
-              <p class="transaction-type">Payment</p>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
             </div>
-            <div class="transaction-amount negative">-US$41.20</div>
-          </div>
-        </section>
-
-
-     <!-- Bottom Action Bar (Send / Request) -->
-     <a href="sendMoney.html" class="send-btn">  <div class="bottom-action-bar">
-    <button>Send</button>
-    <button class="request-btn">Request</button>
-     </div></a>
-
-  <!-- Bottom Navigation Bar -->
-  <nav class="bottom-nav">
-    <a href="#" class="nav-item active">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
-    </a>
-    <a href="#" class="nav-item">
-      <i class="fas fa-dollar-sign"></i>
-      <span>Payments</span>
-    </a>
-    <a href="#" class="nav-item">
-      <i class="fas fa-wallet"></i>
-      <span>Wallet</span>
-    </a>
-  </nav>
-
-  </div>
-
- 
-
-  <!-- Optional JavaScript -->
-  <script >
-
-const transactionData = JSON.parse(localStorage.getItem('transactionData'));
-  if (transactionData) {
-    document.getElementById('recipientName').textContent = transactionData.recipientName;
-    document.getElementById('timestamp').textContent = transactionData.timestamp;
-    document.getElementById('feeText').textContent = ` - ${transactionData.total} ${transactionData.sendCurrency}`;
-    document.getElementById('totalAmount').textContent = `- ${transactionData.total} ${transactionData.sendCurrency}`;
-    document.getElementById('recipientAvatar').textContent = transactionData.avatarText; 
-    // localStorage.removeItem('transactionData'); // Uncomment to clear data after use
-  } else {
-    console.log("No transaction data found in localStorage.");
-  }
-  </script>
+            <button type="submit" class="login-btn">Log In</button>
+        </form>
+        <a href="#" class="forgot-password">Forgot your password?</a>
+    </div>
 </body>
 </html>
